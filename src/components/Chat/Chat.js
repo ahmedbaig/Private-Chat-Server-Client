@@ -27,7 +27,8 @@ const Chat = ({ location }) => {
     setRoom(room);
     setName(name)
 
-    socket.emit('join', { name, room }, (error) => {
+    socket.emit('join', { authorization_token:name, room }, (error) => {
+      alert(name + " " +room)
       if(error) {
         alert(error);
       }
@@ -40,6 +41,7 @@ const Chat = ({ location }) => {
     });
     
     socket.on("roomData", ({ users }) => {
+      console.log(users)
       setUsers(users);
     });
 }, []);
@@ -48,7 +50,7 @@ const Chat = ({ location }) => {
     event.preventDefault();
 
     if(message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
+      socket.emit('sendMessage', {message, streamTime: 0}, () => setMessage(''));
     }
   }
 
