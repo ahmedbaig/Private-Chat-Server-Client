@@ -1,0 +1,23 @@
+<div class="container">
+    <form class="sign-in-form">
+        <div class="card">
+            <div class="card-body">
+                <a href="index.html" class="brand text-center d-block m-b-20">
+                    <!-- <img src="./assets//assets/img/qt-logo@2x.jpg" alt="Logo" /> -->
+                </a>
+                <h5 class="sign-in-heading text-center m-b-20">Sign in to your account</h5>
+                <div class="form-group">
+                    <label for="inputEmail" class="sr-only">User ID</label>
+                    <input [(ngModel)]="user" type="text" name="user" id="inputEmail" class="form-control" placeholder="User ID" required="">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input [(ngModel)]="password" type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                </div>
+                <button class="btn btn-primary btn-rounded btn-floating btn-lg btn-block" (click)="submit()" type="submit">Sign In</button>
+            </div>
+
+        </div>
+    </form>
+</div>
