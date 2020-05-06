@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthService, private secureStorage: SecureStorageService, private router: Router) { }
 
   ngOnInit() {
-    let logged = this.secureStorage.getItem('LOGGED')
+    let logged = this.auth.LOGGED
     if (logged == 'false' || logged == null) {
       this.router.navigate([''])
     } else if (logged == 'true') {
@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
         this.secureStorage.setUserId(res.session._id)
         this.secureStorage.setAuthToken(res.authorization_token)
         this.secureStorage.setItem('loginDate', moment().format('YYYY-MM-DD'))
+        this.auth.LOGGED = this.secureStorage.getItem('LOGGED');
+        console.log("LOGGED", this.auth.LOGGED)
         this.auth.AUTH_TOKEN = this.secureStorage.getAuthToken();
         this.auth.SESSION_TOKEN = this.secureStorage.getUserId();
         this.router.navigate(['dashboard'])

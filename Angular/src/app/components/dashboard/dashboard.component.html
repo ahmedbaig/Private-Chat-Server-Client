@@ -36,7 +36,7 @@
                             </div>
                             <div class="contact-list">
                                 <ul class="list-group" data-scroll="minimal-dark">
-                                    <li class="list-group-item active" [ngClass]="{'ist-group-item': true, 'active': active==room._id}" (click)="changeRoom(room._id)" id="room._id" *ngFor="let room of rooms">
+                                    <li [ngClass]="{'list-group-item': true, 'active': active==room._id}" (click)="changeRoom(room._id)" id="room._id" *ngFor="let room of rooms">
                                         <a href="javascript:void(0)" class="item d-flex">
                                             <div class="avatar order-1">
                                                 <img src="{{room.meta[1]}}" alt="contact person" class="rounded-circle w-40">
@@ -80,41 +80,6 @@
                                                 <div class="chat-body">
                                                     <div class="chat-bubble">
                                                         <div class="chat-content">
-                                                            <p>Hey, I'm back in town./assets.you wanna meet-up for coffee?</p>
-                                                            <p>I have a new project to run by you.</p>
-                                                            <span class="chat-time">9:00 am</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="chat chat-left">
-                                                <div class="chat-avatar">
-                                                    <a href="profile.html" class="avatar">
-                                                        <img alt="" src="./assets/assets/img/avatars/9.jpg" class="img-responsive img-circle">
-                                                    </a>
-                                                </div>
-                                                <div class="chat-body">
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content">
-                                                            <p>Yeah that sounds great! </p>
-                                                            <span class="chat-time">9:05 am</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content">
-                                                            <p>I'll meet you at the coffee shop around the corner.</p>
-                                                            <span class="chat-time">9:06 am</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="chat-line">
-                                                <span class="chat-date">October 27th, 2018</span>
-                                            </div>
-                                            <div class="chat chat-right">
-                                                <div class="chat-body">
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content">
                                                             <p>Hey, I have those wireframes ready.</p>
                                                             <span class="chat-time">11:05 am</span>
                                                         </div>
@@ -123,75 +88,6 @@
                                                         <div class="chat-content">
                                                             <p>I'll upload them to our accound for you to review.</p>
                                                             <span class="chat-time">11:06 am</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="chat chat-left">
-                                                <div class="chat-avatar">
-                                                    <a href="profile.html" class="avatar">
-                                                        <img alt="" src="./assets/assets/img/avatars/9.jpg" class="img-responsive img-circle">
-                                                    </a>
-                                                </div>
-                                                <div class="chat-body">
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content">
-                                                            <p>Awesome I'm looking forward to it.</p>
-                                                            <span class="chat-time">11:10 am</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content">
-                                                            <p>I created a new project folder for them, please upload them here too so I can preview them.</p>
-                                                            <span class="chat-time">11:11 am</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content img-content">
-                                                            <div class="chat-img-group clearfix">
-                                                                <p>Also be sure to check them into the repo.</p>
-                                                            </div>
-                                                            <span class="chat-time">11:12 am</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="chat chat-right">
-                                                <div class="chat-body">
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content img-content">
-                                                            <div class="chat-img-group clearfix">
-                                                                <p>Uploaded 4 Images</p>
-                                                                <a class="chat-img-attach d-inline-block" href="javascript:void(0)">
-                                                                    <img alt="" class="max-w-100" src="./assets/assets/img/demos/wire-1.jpg">
-                                                                    <div class="chat-meta">
-                                                                        <div class="chat-file-name">Lo-Fi_1.jpg</div>
-                                                                        <div class="chat-file-size">627 KB</div>
-                                                                    </div>
-                                                                </a>
-                                                                <a class="chat-img-attach d-inline-block" href="javascript:void(0)">
-                                                                    <img alt="" class="max-w-100" src="./assets/assets/img/demos/wire-2.jpg">
-                                                                    <div class="chat-meta">
-                                                                        <div class="chat-file-name">Lo-Fi_2.jpg</div>
-                                                                        <div class="chat-file-size">627 KB</div>
-                                                                    </div>
-                                                                </a>
-                                                                <a class="chat-img-attach d-inline-block" href="javascript:void(0)">
-                                                                    <img alt="" class="max-w-100" src="./assets/assets/img/demos/wire-3.jpg">
-                                                                    <div class="chat-meta">
-                                                                        <div class="chat-file-name">Lo-Fi_3.jpg</div>
-                                                                        <div class="chat-file-size">627 KB</div>
-                                                                    </div>
-                                                                </a>
-                                                                <a class="chat-img-attach d-inline-block" href="javascript:void(0)">
-                                                                    <img alt="" class="max-w-100" src="./assets/assets/img/demos/wire-4.jpg">
-                                                                    <div class="chat-meta">
-                                                                        <div class="chat-file-name">Lo-Fi_4.jpg</div>
-                                                                        <div class="chat-file-size">627 KB</div>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <span class="chat-time">11:30 am</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -217,9 +113,9 @@
                             <div class="card-footer bg-white p-10">
                                 <div class="form-group m-10 p-0 p-l-75">
                                     <div class="input-group m-t-10">
-                                        <label class="sr-only">Leave a comment..</label>
-                                        <input type="text" class="form-control border-none" placeholder="Leave a comment..">
-                                        <button type="button" class="btn btn-primary btn-rounded m-r-20">
+                                        <label class="sr-only">Send Message..</label>
+                                        <input type="text" class="form-control border-none" placeholder="Send Message.." [(ngModel)]="message">
+                                        <button type="button" (click)="sendMessage()" class="btn btn-primary btn-rounded m-r-20">
 													Send
 												</button>
                                     </div>

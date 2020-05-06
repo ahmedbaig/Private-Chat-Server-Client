@@ -21,7 +21,7 @@ export class ChatService {
     return this.http.get(`${this.origin}/api/rooms/get-room?session_token=${this.SESSION_TOKEN}&authorization_token=${this.AUTH_TOKEN}`)
   }
 
-  getRoomMessages():Observable<any>{
-    return this.http.get(`${this.origin}/api/messages/livechat-messages?session_token=${this.SESSION_TOKEN}&authorization_token=${this.AUTH_TOKEN}`)
+  getRoomMessages(room:String):Observable<any>{
+    return this.http.get(`${this.origin}/api/messages/livechat-messages?room=${room}&session_token=${this.SESSION_TOKEN}&authorization_token=${this.AUTH_TOKEN}`)
   }
 }

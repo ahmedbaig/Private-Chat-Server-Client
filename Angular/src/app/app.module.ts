@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthComponent } from './components/auth/auth.component'; 
+import { SocketService } from './services/socket.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { AuthComponent } from './components/auth/auth.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

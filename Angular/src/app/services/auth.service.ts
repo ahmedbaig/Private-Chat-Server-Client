@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   origin:String = variables.origin
   AUTH_TOKEN = this.secureStorage.getAuthToken();
+  LOGGED = "false";
   SESSION_TOKEN = this.secureStorage.getUserId();
   
   constructor(private http:HttpClient, private secureStorage: SecureStorageService) { }
