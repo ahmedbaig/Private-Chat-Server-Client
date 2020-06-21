@@ -5,14 +5,14 @@
                 <ul class="navbar-nav nav-right">
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img *ngIf="url == null" src="./assets/assets/img/avatars/logo-01.jpg" class="w-35 rounded-circle">
-                            <img *ngIf="url != null" [src]="url" class="w-35 rounded-circle">
+                            <img *ngIf="userImageDisplay == null" src="./assets/assets/img/avatars/logo-01.jpg" class="w-35 rounded-circle">
+                            <img *ngIf="userImageDisplay != null" [src]="userImage" class="w-35 rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-accout">
                             <div class="dropdown-header pb-3">
                                 <div class="media d-user">
-                                    <img class="align-self-center mr-3 w-40 rounded-circle" *ngIf="url == null" src="./assets/assets/img/avatars/logo-01.jpg">
-                                    <img class="align-self-center mr-3 w-40 rounded-circle" *ngIf="url != null" [src]="url">
+                                    <img class="align-self-center mr-3 w-40 rounded-circle" *ngIf="userImageDisplay == null" src="./assets/assets/img/avatars/logo-01.jpg">
+                                    <img class="align-self-center mr-3 w-40 rounded-circle" *ngIf="userImageDisplay != null" [src]="userImage">
                                     <div class="media-body" style="text-transform: capitalize;">
                                         <h5 class="mt-0 mb-0">{{session.name}}</h5>
                                         <span>{{session.role}}</span>
@@ -30,24 +30,10 @@
                 <div class="card">
                     <div class="d-flex flex fixed-height" id="3-col-wrapper">
                         <aside class="aside aside-left flex-fill">
-                            <div class="search-wrapper p-t-15 p-r-20 p-b-0 p-l-20">
-                                <button class="search-button-submit" type="submit"><i class="icon dripicons-search"></i></button>
-                                <input type="text" class="search-input" placeholder="Search..">
-                            </div>
                             <div class="contact-list">
                                 <ul class="list-group" data-scroll="minimal-dark">
-                                    <li [ngClass]="{'list-group-item': true, 'active': active==room._id}" (click)="changeRoom(room._id)" id="room._id" *ngFor="let room of rooms">
-                                        <a href="javascript:void(0)" class="item d-flex">
-                                            <div class="avatar order-1">
-                                                <img src="{{room.meta[1]}}" alt="contact person" class="rounded-circle w-40">
-                                            </div>
-                                            <div class="row-content order-2">
-                                                <small class="text-muted float-right">Now</small>
-                                                <p class="list-group-item-title">{{room.meta[0]}}</p>
-                                                <p class="list-group-item-text">Fashion axe kitsch marfa, art party gluten-free beard meditation lumbersexual pinterest</p>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <app-rooms [roomC]='room' [ngClass]="{'list-group-item': true, 'active': active==room._id}" (click)="changeRoom(room._id)" id="room._id" *ngFor="let room of rooms">
+                                    </app-rooms>
                                 </ul>
                             </div>
                         </aside>
@@ -63,45 +49,37 @@
                                     </li>
                                     <li>
                                         <div class="float-left avatar-wrapper">
-                                            <img src="{{activeChat.meta[1]}}" alt="contact person" class="rounded-circle w-40 h-40 m-r-10">
-                                            <span *ngIf="activeChat.stream.status == true" class="badge badge-success badge-circle"></span>
+                                            <img src="{{activeChat.meta[1]}}" alt="contact person" class="rounded-circle w-40 h-40 m-r-10"><span *ngIf="activeChat.stream.status == true" class="badge badge-success badge-circle"></span>
                                         </div>
                                         <div class="float-left">
-                                            <span class="d-block m-t-10">{{activeChat.meta[0]}}</span>
+                                            <span class="d-block m-t-10">{{activeChat.meta[0]}} [Connected Users: {{users.length}} ]</span>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                             <div class="chat-contents">
                                 <div class="chat-content-wrap">
-                                    <div class="chat-wrap-inner scroll-bottom" data-scroll="minimal-dark">
+                                    <div class="chat-wrap-inner scroll-bottom" id="scrollMe" data-scroll="minimal-dark">
                                         <div class="chats">
-                                            <div class="chat chat-right">
-                                                <div class="chat-body">
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content">
-                                                            <p>Hey, I have those wireframes ready.</p>
-                                                            <span class="chat-time">11:05 am</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="chat-bubble">
-                                                        <div class="chat-content">
-                                                            <p>I'll upload them to our accound for you to review.</p>
-                                                            <span class="chat-time">11:06 am</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="chat chat-left">
-                                                <div class="chat-avatar">
-                                                    <a href="profile.html" class="avatar">
-                                                        <img alt="" src="./assets/assets/img/avatars/9.jpg" class="img-responsive img-circle">
+                                            <div [ngClass]="{'chat': true, 'chat-right': message.id==SESSION_TOKEN, 'chat-left': message.id!=SESSION_TOKEN}" *ngFor="let message of messages">
+                                                <div class="chat-avatar" *ngIf="message.id!=SESSION_TOKEN&&message.info==false">
+                                                    <a href class="avatar">
+                                                        <img [alt]="message.name" [src]="message.profilePicture" class="img-responsive img-circle">
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body" (click)="showUser(message.id)" *ngIf="message.id">
                                                     <div class="chat-bubble">
                                                         <div class="chat-content">
-                                                            <p>Typing..</p>
+                                                            <p>{{message.message}}</p>
+                                                            <span class="chat-time">{{message.createdt}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="chat-body" *ngIf="!message.id">
+                                                    <div class="chat-bubble">
+                                                        <div class="chat-content">
+                                                            <p>{{message.message}}</p>
+                                                            <span class="chat-time">{{message.createdt}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -128,16 +106,12 @@
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <div class="gradient-border rounded-circle w-100 h-100 m-auto">
-                                                <img src="./assets/assets/img/avatars/9.jpg" alt="user" class="rounded-circle max-w-100 m-t-20">
+                                                <img *ngIf="userImageDisplay == null" src="./assets/assets/img/avatars/logo-01.jpg" class="rounded-circle max-w-100 m-t-20">
+                                                <img *ngIf="userImageDisplay != null" [src]="userImageDisplay" class="rounded-circle max-w-100 m-t-20">
                                             </div>
                                         </div>
                                         <div class="col-md-12 m-t-30 text-center">
-                                            <h5 class="card-title m-b-5">Rochelle Barton</h5>
-                                            <small class="text-muted d-block">Interaction Designer</small>
-                                            <small class="text-muted d-block">
-														<i class="icon dripicons-location"></i>
-														500 W 2nd St Austin, TX 78701
-													</small>
+                                            <h5 class="card-title m-b-5" style="text-transform: capitalize;">{{userName}}</h5>
                                         </div>
                                     </div>
                                 </div>

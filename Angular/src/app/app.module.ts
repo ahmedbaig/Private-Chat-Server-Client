@@ -9,13 +9,14 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthComponent } from './components/auth/auth.component'; 
 import { SocketService } from './services/socket.service';
-
+import { RoomsComponent } from './components/dashboard/rooms/rooms.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    AuthComponent
+    AuthComponent,
+    RoomsComponent
   ],
   imports: [
     LoadingBarHttpClientModule,

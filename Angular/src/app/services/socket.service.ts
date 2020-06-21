@@ -31,7 +31,6 @@ export class SocketService {
   public getMessages = () => {
     return Observable.create((observer) => {
         this.socket.on('message', (message) => {
-          console.log(message)
             observer.next(message);
         });
     });
@@ -39,7 +38,6 @@ export class SocketService {
   public getRoomData = () => {
     return Observable.create((observer) => {
         this.socket.on('roomData', (users) => {
-            console.log(users)
             observer.next(users);
         });
     });
