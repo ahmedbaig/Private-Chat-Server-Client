@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.5.1.min.js">
+        
+    </script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="chat.js"></script>
+</head>
+<body>
+    <label for="system">Select Chat System To Connect:</label>
+    <select name="system" id="system">
+        <option value="lyve" selected>LYVE</option>
+        <option value="sply">SPLY</option>
+    </select>
+    <hr>
+
+    <label for="role">Select User Role on Chat System:</label>
+    <select name="role" id="role">
+        <option value="user" selected>USER</option>
+        <option value="admin">ADMIN</option>
+    </select>
+    <hr>
+
+    <input id="token" autocomplete type="text" placeholder="MLS Token / SPLY User ID"/>
+    <input id="username" style="display: none;" autocomplete type="text" placeholder="SPLY User Full Name"/>
+    <button id='submit'>Submit</button>
+    <div id="AUTHDATA"> </div>
+    <hr>
+    <span>Connected USERS: [ <span id='users'>0</span> ]</span>
+    <input id="room" autocomplete type="text" placeholder="Event ID / Broadcast ID"/>
+    <button id='getRoom'>Submit</button>
+    <div id="ROOM"> </div>
+    <hr>
+
+    <input id="message" autocomplete type="text" placeholder="Send Message"/>
+    <button id='sendMessage'>Submit</button>
+    <hr>
+    <div id="messages"> </div>
+</body>
+</html>
