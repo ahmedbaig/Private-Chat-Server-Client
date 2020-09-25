@@ -10,6 +10,7 @@ export class SocketService {
   private origin: String = variables.origin
   private url = this.origin;
   private socket;
+  public sidebarConnects:string[] = []
   AUTH_TOKEN = this.secureStorage.getAuthToken();
   SESSION_TOKEN = this.secureStorage.getUserId();
   constructor(private secureStorage: SecureStorageService) { 

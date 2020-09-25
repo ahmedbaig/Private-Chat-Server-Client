@@ -4,22 +4,27 @@
             <nav class="top-toolbar navbar navbar-desktop flex-nowrap">
                 <ul class="navbar-nav nav-right">
                     <li class="nav-item dropdown">
-                        <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img *ngIf="userImageDisplay == null" src="./assets/assets/img/avatars/logo-01.jpg" class="w-35 rounded-circle">
+                        <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img *ngIf="userImageDisplay == null" src="./assets/assets/img/avatars/logo-01.jpg"
+                                class="w-35 rounded-circle">
                             <img *ngIf="userImageDisplay != null" [src]="userImage" class="w-35 rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-accout">
                             <div class="dropdown-header pb-3">
                                 <div class="media d-user">
-                                    <img class="align-self-center mr-3 w-40 rounded-circle" *ngIf="userImageDisplay == null" src="./assets/assets/img/avatars/logo-01.jpg">
-                                    <img class="align-self-center mr-3 w-40 rounded-circle" *ngIf="userImageDisplay != null" [src]="userImage">
+                                    <img class="align-self-center mr-3 w-40 rounded-circle"
+                                        *ngIf="userImageDisplay == null" src="./assets/assets/img/avatars/logo-01.jpg">
+                                    <img class="align-self-center mr-3 w-40 rounded-circle"
+                                        *ngIf="userImageDisplay != null" [src]="userImage">
                                     <div class="media-body" style="text-transform: capitalize;">
                                         <h5 class="mt-0 mb-0">{{session.name}}</h5>
                                         <span>{{session.role}}</span>
                                     </div>
                                 </div>
                             </div>
-                            <a (click)="logout()" class="dropdown-item"><i class="icon dripicons-lock-open"></i> Sign Out</a>
+                            <a (click)="logout()" class="dropdown-item"><i class="icon dripicons-lock-open"></i> Sign
+                                Out</a>
                         </div>
                     </li>
                 </ul>
@@ -31,28 +36,175 @@
                     <div class="d-flex flex fixed-height" id="3-col-wrapper">
                         <aside class="aside aside-left flex-fill">
                             <div class="contact-list">
-                                <ul class="list-group" data-scroll="minimal-dark">
-                                    <app-rooms [roomC]='room' [ngClass]="{'list-group-item': true, 'active': active==room._id}" (click)="changeRoom(room._id)" id="room._id" *ngFor="let room of rooms">
-                                    </app-rooms>
+                                <ul *ngIf="searching==false" class="list-group" data-scroll="minimal-dark">
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="rooms_show==false?rooms_show = true:rooms_show = false">Others
+                                            <span *ngIf="rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="rooms_show==true"> 
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id" *ngFor="let room of rooms">
+                                        </app-rooms>
+                                    </span>
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="event_rooms_show==false?event_rooms_show = true:event_rooms_show = false">
+                                            Events
+                                            <span *ngIf="event_rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="event_rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="event_rooms_show==true">
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id"
+                                            *ngFor="let room of event_rooms">
+                                        </app-rooms>
+                                    </span>
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="artist_rooms_show==false?artist_rooms_show = true:artist_rooms_show = false">
+                                            Artists
+                                            <span *ngIf="artist_rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="artist_rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="artist_rooms_show==true">
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id"
+                                            *ngFor="let room of artist_rooms">
+                                        </app-rooms>
+                                    </span>
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="video_rooms_show==false?video_rooms_show = true:video_rooms_show = false">
+                                            Videos
+                                            <span *ngIf="video_rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="video_rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="video_rooms_show==true">
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id"
+                                            *ngFor="let room of video_rooms">
+                                        </app-rooms>
+                                    </span>
+
                                 </ul>
+                                <ul *ngIf="searching==true" class="list-group" data-scroll="minimal-dark">
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="rooms_show==false?rooms_show = true:rooms_show = false">Others
+                                            <span *ngIf="rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="rooms_show==true"> 
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id" *ngFor="let room of rooms_searching">
+                                        </app-rooms>
+                                    </span>
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="event_rooms_show==false?event_rooms_show = true:event_rooms_show = false">
+                                            Events
+                                            <span *ngIf="event_rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="event_rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="event_rooms_show==true">
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id"
+                                            *ngFor="let room of event_rooms_searching">
+                                        </app-rooms>
+                                    </span>
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="artist_rooms_show==false?artist_rooms_show = true:artist_rooms_show = false">
+                                            Artists
+                                            <span *ngIf="artist_rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="artist_rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="artist_rooms_show==true">
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id"
+                                            *ngFor="let room of artist_rooms_searching">
+                                        </app-rooms>
+                                    </span>
+                                    <li>
+                                        <h5 [ngClass]="{'category-heading': true}"
+                                            (click)="video_rooms_show==false?video_rooms_show = true:video_rooms_show = false">
+                                            Videos
+                                            <span *ngIf="video_rooms_show==false" class="right icon dripicons-plus">
+                                            </span>
+                                            <span *ngIf="video_rooms_show==true" class="right icon dripicons-cross">
+                                            </span>
+                                        </h5>
+                                    </li>
+                                    <span *ngIf="video_rooms_show==true">
+                                        <app-rooms [roomC]='room'
+                                            [ngClass]="{'list-group-item': true, 'active': active==room._id}"
+                                            (click)="changeRoom(room._id)" id="room._id"
+                                            *ngFor="let room of video_rooms_searching">
+                                        </app-rooms>
+                                    </span>
+
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-white p-10">
+                                <div class="form-group">
+                                    <div class="input-group p-t-10">
+                                        <label class="sr-only">Search</label>
+                                        <input (keydown)="keyDownFunctionSearch($event)" type="text" class="form-control border-none" placeholder="Search"
+                                            [(ngModel)]="search">
+                                    </div>
+                                </div>
                             </div>
                         </aside>
                         <div class="center-content flex-fill bg-light">
                             <div class="toolbar border-bottom">
                                 <ul class="actions top-left">
                                     <li id="mobile-aside-menu-trigger">
-                                        <a href="javascript:void(0)" data-q-action="page-aside-left-open"><i class="icon svg-icon">
-													<svg id="i-menu" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-														<path d="M4 8 L28 8 M4 16 L28 16 M4 24 L28 24" />
-													</svg>
-												</i></a>
+                                        <a href="javascript:void(0)" data-q-action="page-aside-left-open"><i
+                                                class="icon svg-icon">
+                                                <svg id="i-menu" viewBox="0 0 32 32" width="32" height="32" fill="none"
+                                                    stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2">
+                                                    <path d="M4 8 L28 8 M4 16 L28 16 M4 24 L28 24" />
+                                                </svg>
+                                            </i></a>
                                     </li>
                                     <li>
-                                        <div class="float-left avatar-wrapper">
+                                        <!-- <div class="float-left avatar-wrapper">
                                             <img src="{{activeChat.meta[1]}}" alt="contact person" class="rounded-circle w-40 h-40 m-r-10"><span *ngIf="activeChat.stream.status == true" class="badge badge-success badge-circle"></span>
-                                        </div>
+                                        </div> -->
                                         <div class="float-left">
-                                            <span class="d-block m-t-10">{{activeChat.meta[0]}} [Connected Users: {{users.length}} ]</span>
+                                            <span class="d-block m-t-10" *ngIf="activeChat.meta">{{activeChat.meta[0]}}
+                                                [Connected Users: {{users.length}} ]</span>
                                         </div>
                                     </li>
                                 </ul>
@@ -61,19 +213,26 @@
                                 <div class="chat-content-wrap">
                                     <div class="chat-wrap-inner scroll-bottom" id="scrollMe" data-scroll="minimal-dark">
                                         <div class="chats">
-                                            <div [ngClass]="{'chat': true, 'chat-right': message.id==SESSION_TOKEN, 'chat-left': message.id!=SESSION_TOKEN}" *ngFor="let message of messages">
-                                                <div class="chat-avatar" *ngIf="message.id!=SESSION_TOKEN&&message.info==false">
+                                            <div [id]="message._id" [ngClass]="{'chat': true, 'chat-right': message.id==SESSION_TOKEN, 'chat-left': message.id!=SESSION_TOKEN}"
+                                                *ngFor="let message of messages">
+                                                <div class="chat-avatar"
+                                                    *ngIf="message.id!=SESSION_TOKEN&&message.info==false">
                                                     <a href class="avatar">
-                                                        <img [alt]="message.name" [src]="message.profilePicture" class="img-responsive img-circle">
+                                                        <img [alt]="message.name" [src]="message.profilePicture"
+                                                            class="img-responsive img-circle">
                                                     </a>
                                                 </div>
-                                                <div class="chat-body" (click)="showUser(message.id)" *ngIf="message.id">
-                                                    <div class="chat-bubble">
+                                                <div class="chat-body"
+                                                    *ngIf="message.id">
+                                                    <div class="chat-bubble" (mouseenter)="deleteMessageButton[message._id] = true" (mouseleave)="deleteMessageButton[message._id] = false">  
                                                         <div class="chat-content">
+                                                            <h6 [ngClass]="{'username': true}" *ngIf="message.id!=SESSION_TOKEN">{{message.name}}</h6>
                                                             <p>{{message.message}}</p>
                                                             <span class="chat-time">{{message.createdt}}</span>
                                                         </div>
-                                                    </div>
+                                                        <span  *ngIf="message.info==false&&deleteMessageButton[message._id]==true&&message._id!=null" (click)="deleteMessage(message._id)" [ngClass]="{'icon dripicons-cross': true, 'message-remove-right':message.info==false&&message.id==SESSION_TOKEN, 'message-remove':message.info==false&&message.id!=SESSION_TOKEN}">
+                                                        </span>
+                                                    </div> 
                                                 </div>
                                                 <div class="chat-body" *ngIf="!message.id">
                                                     <div class="chat-bubble">
@@ -92,15 +251,17 @@
                                 <div class="form-group m-10 p-0 p-l-75">
                                     <div class="input-group m-t-10">
                                         <label class="sr-only">Send Message..</label>
-                                        <input type="text" class="form-control border-none" placeholder="Send Message.." [(ngModel)]="message">
-                                        <button type="button" (click)="sendMessage()" class="btn btn-primary btn-rounded m-r-20">
-													Send
-												</button>
+                                        <input (keydown)="keyDownFunction($event)" type="text" class="form-control border-none" placeholder="Send Message.."
+                                            [(ngModel)]="message">
+                                        <button type="button" (click)="sendMessage()"
+                                            class="btn btn-primary btn-rounded m-r-20">
+                                            Send
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <aside class="aside aside-right flex-fill">
+                        <!-- <aside class="aside aside-right flex-fill">
                             <div class="card no-shadow">
                                 <div class="card-body">
                                     <div class="row">
@@ -116,7 +277,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </aside>
+                        </aside> -->
                     </div>
                 </div>
             </div>

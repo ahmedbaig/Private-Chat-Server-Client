@@ -24,4 +24,8 @@ export class ChatService {
   getRoomMessages(room:String):Observable<any>{
     return this.http.get(`${this.origin}/api/messages/livechat-messages?room=${room}&session_token=${this.SESSION_TOKEN}&authorization_token=${this.AUTH_TOKEN}`)
   }
+
+  deleteRoomMessage(body:any):Observable<any>{
+    return this.http.post(`${this.origin}/api/messages/livechat-delete-message?session_token=${this.SESSION_TOKEN}&authorization_token=${this.AUTH_TOKEN}`, body)
+  }
 }
