@@ -19,7 +19,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
   private origin: String = variables.origin
   private url = this.origin;
   private socket;
-  private message: any = {
+  public message: any = {
     name: "",
     message: "",
     t: ""

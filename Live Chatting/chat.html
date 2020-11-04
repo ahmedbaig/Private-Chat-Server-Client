@@ -1,44 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Live Chat Sample</title>
     <script src="jquery-3.5.1.min.js">
-        
-    </script> 
+
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="chat.js"></script>
-</head>
-<body>
-    <label for="system">Select Chat System To Connect:</label>
-    <select name="system" id="system">
-        <option value="lyve" selected>LYVE</option>
-        <option value="sply">SPLY</option>
-    </select>
-    <hr>
+</head> 
+<style> 
+    .dark-mode {
+      background-color: #1c1d29;
+      color: white;
+    }
+    .dark-mode .card{
+       background-color: #25263a;
+    }
+    .card-body{
+        -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+        
+    }
+    </style>
+<body class="dark-mode">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form onsubmit="event.preventDefault()">
+                            <div class="form-group">
+                                <label for="system">Select Chat System To Connect</label>
+                                <select class="form-control" name="system" id="system">
+                                    <option value="lyve" selected>LYVE</option>
+                                    <option value="sply">SPLY</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="system">Select User Role on Chat System</label>
+                                <select class="form-control" name="role" id="role">
+                                    <option value="user" selected>USER</option>
+                                    <option value="admin">ADMIN</option>
+                                    <option value="su">SUPER ADMIN</option>
+                                </select>
+                            </div>
+                        </form>
+                        <form onsubmit="event.preventDefault()">
+                            <div class="form-group">
+                                <input class="form-control" id="firstName" autocomplete type="text"
+                                    placeholder="LYVE User First name">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="lastName" autocomplete type="text"
+                                    placeholder="LYVE User Last name">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="id" autocomplete type="text"
+                                    placeholder="LYVE User Random ID">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="token" style="display: none;" autocomplete type="text"
+                                    placeholder="SPLY User ID">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="username" style="display: none;" autocomplete
+                                    type="text" placeholder="SPLY User Full Name">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" style="display: none;" id="user" autocomplete="off"
+                                    type="text" placeholder="Enter User">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" style="display: none;" id="password" autocomplete="off"
+                                    type="text" placeholder="Enter Password">
+                            </div>
+                            <button class="btn btn-primary" id='submit'>Login</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
 
-    <label for="role">Select User Role on Chat System:</label>
-    <select name="role" id="role">
-        <option value="user" selected>USER</option>
-        <option value="admin">ADMIN</option>
-    </select>
-    <hr>
+                        <p id="AUTHDATA"> </p>
+                        <hr>
+                        <div id="rooms"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
 
-    <input id="token" autocomplete type="text" placeholder="MLS Token / SPLY User ID"/>
-    <input id="username" style="display: none;" autocomplete type="text" placeholder="SPLY User Full Name"/>
-    <button id='submit'>Submit</button>
-    <div id="AUTHDATA"> </div>
-    <hr>
-    <span>Connected USERS: [ <span id='users'>0</span> ]</span>
-    <input id="room" autocomplete type="text" placeholder="Event ID / Broadcast ID"/>
-    <button id='getRoom'>Submit</button>
-    <div id="ROOM"> </div>
-    <hr>
+                        <span>Connected USERS: [ <span id='users'>0</span> ]</span>
 
-    <input id="message" autocomplete type="text" placeholder="Send Message"/>
-    <button id='sendMessage'>Submit</button>
+                        <form onsubmit="event.preventDefault()">
+                            <div class="form-group">
+                                <input class="form-control" id="room" autocomplete type="text"
+                                    placeholder="Room Name / Event ID / Broadcast ID / Video ID">
+                            </div>
+                            <button class="btn btn-primary" id='getRoom'>Join</button>
+                        </form>
+                        <div id="ROOM"> </div>
+                        <hr>
+                        <form onsubmit="event.preventDefault()">
+                            <div class="form-group">
+                                <input class="form-control" id="message" autocomplete type="text"
+                                    placeholder="Send Message">
+                            </div>
+                            <button class="btn btn-primary" id='sendMessage'>Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div id="messages"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <hr>
-    <div id="messages"> </div>
 </body>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </html>
